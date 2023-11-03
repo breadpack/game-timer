@@ -46,8 +46,10 @@ pipeline {
                     // NuGet 소스가 이미 있는지 확인
                     def sourcesList = bat(script: "nuget sources List", returnStdout: true).trim()
                     if (!sourcesList.contains('gitlab')) {
-                        // 소스 추가
-                        bat "nuget sources Add -Name ${GITLAB_SOURCE_NAME} -Source ${NUGET_SOURCE} -username gitlab+deploy-token-1 -password PCH5qsSh36Gvjs-RSgTB"
+                        withCredentials([usernamePassword(credentialsId: NUGET_CREDENTIALS, usernameVariable: 'NUGET_USER', passwordVariable: 'NUGET_PASS')]) {
+                            // 소스 추가
+                            bat "nuget sources Add -Name ${GITLAB_SOURCE_NAME} -Source ${NUGET_SOURCE} -username $NUGET_USER -password $NUGET_PASS"
+                        }
                     } else {
                         echo "NuGet source '${GITLAB_SOURCE_NAME}' already exists."
                     }
