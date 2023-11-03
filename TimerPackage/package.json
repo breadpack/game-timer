@@ -1,0 +1,17 @@
+{
+  "name": "com.startergames.gametimer",
+  "version": "1.0.0",
+  "displayName": "Timer for unity",
+  "description": "",
+  "unity": "2021.3",
+  "keywords": [
+    "unity",
+    "package",
+    "timer"
+  ],
+  "author": {
+    "name": "Starter Games",
+    "email": "developer@startergames.com",
+    "url": "https://www.startergames.com"
+  }
+}

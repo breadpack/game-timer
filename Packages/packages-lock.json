@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.startergames.gametimer": {
+      "version": "file:../TimerPackage",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.2d.animation": {
       "version": "7.0.11",
       "depth": 1,
