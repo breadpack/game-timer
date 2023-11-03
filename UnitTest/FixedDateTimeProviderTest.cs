@@ -27,7 +27,7 @@ public class FixedDateTimeProviderTest {
         var    resetTime = timer.GetResetUtcTime(lastTime.ToUniversalTime());
 
         // Assert
-        Assert.AreEqual(expected, resetTime);
+        Assert.That(resetTime, Is.EqualTo(expected));
     }
 
     [Test]
@@ -42,7 +42,7 @@ public class FixedDateTimeProviderTest {
         var    resetTime = timer.GetResetUtcTime(lastTime);
 
         // Assert
-        Assert.AreEqual(expected, resetTime);
+        Assert.That(resetTime, Is.EqualTo(expected));
     }
 
     [Test]
@@ -57,7 +57,7 @@ public class FixedDateTimeProviderTest {
         var    resetTime = timer.GetResetUtcTime(lastTime);
 
         // Assert
-        Assert.AreEqual(expected, resetTime);
+        Assert.That(resetTime, Is.EqualTo(expected));
     }
 
     [Test]
@@ -73,19 +73,21 @@ public class FixedDateTimeProviderTest {
         var    resetTime = timer.GetResetUtcTime(lastTime);
 
         // Assert
-        Assert.AreEqual(expected, resetTime);
+        Assert.That(resetTime, Is.EqualTo(expected));
     }
 
     [Test]
-    public void TimerAtFixedTimeOfWeek_Should() {
+    public void TimerAtFixedTimeOfWeek_Should()
+    {
         var lastTime = _dateTimeProvider.Now.ToUniversalTime(); // 2023년 4월 10일 월요일 오전 0시
         var expected = _dateTimeProvider.Now.Date.AddDays(2).AddHours(3).ToUniversalTime(); // 2023년 4월 10일 화요일 오전 3시 
         
         ITimer timer     = new TimerAtFixedTimeOfWeek(_dateTimeProvider, new GameTimer.Utility.TimeOnly(3), EDayOfTheWeekFlag.Wednesday);
         var    resetTime = timer.GetResetUtcTime(lastTime);
-        
-        Assert.AreEqual(expected, resetTime);
-
-        Assert.AreEqual(resetTime.AddDays(7), timer.GetResetUtcTime(resetTime));
+        Assert.Multiple(() =>
+        {
+            Assert.That(resetTime, Is.EqualTo(expected));
+            Assert.That(timer.GetResetUtcTime(resetTime), Is.EqualTo(resetTime.AddDays(7)));
+        });
     }
 }
