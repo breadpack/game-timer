@@ -1,0 +1,71 @@
+pipeline {
+    agent any // 또는 특정 에이전트 레이블을 사용할 수 있습니다.
+
+    environment {
+        // GitLab 정보를 환경 변수로 설정합니다.
+        GITLAB_URL = 'https://gitlab.startergames.com/'
+        PROJECT_PATH = '42'
+        API_KEY = credentials("GameTimerAPIToken")
+        NUGET_SOURCE = "${GITLAB_URL}/api/v4/projects/${PROJECT_PATH}/packages/nuget/index.json"
+        SOLUTION_DIR = 'Solution'
+        PROJECT_DIR = 'NetProject'
+    }
+
+    stages {
+        stage('Restore NuGet Packages') {
+            steps {
+                dir(SOLUTION_DIR) {
+                    // NuGet 패키지 복원
+                    bat 'dotnet restore'
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir(SOLUTION_DIR) {
+                    // .NET 프로젝트 빌드
+                    bat 'dotnet build --configuration Release'
+                }
+            }
+        }
+
+        stage('Pack') {
+            steps {
+                // NuGet 패키지 패킹
+                dir(PROJECT_DIR) {
+                    bat 'dotnet pack --configuration Release --output nupkgs'
+                }
+            }
+        }
+
+        stage('Push to GitLab') {
+            steps {
+                // NuGet 패키지를 GitLab에 푸시
+                script {
+                    // NuGet 소스가 이미 있는지 확인
+                    def sourcesList = bat(script: "nuget sources List", returnStdout: true).trim()
+                    if (!sourcesList.contains('gitlab')) {
+                        // 소스 추가
+                        bat "nuget sources Add -Name ${GITLAB_SOURCE_NAME} -Source ${NUGET_SOURCE} -username gitlab+deploy-token-1 -password PCH5qsSh36Gvjs-RSgTB"
+                    } else {
+                        echo "NuGet source '${GITLAB_SOURCE_NAME}' already exists."
+                    }
+                    // nupkgs 폴더에 있는 모든 .nupkg 파일을 찾아 푸시합니다.
+                    def nugetPackages = findFiles(glob: 'NetProject/nupkgs/*.nupkg')
+                    for (def pkg in nugetPackages) {
+                        bat "dotnet nuget push ${pkg.path} --api-key ${API_KEY} --source ${NUGET_SOURCE} --skip-duplicate"
+                    }
+                }
+            }
+        }
+  
+
+    post {
+        always {
+            // 빌드 후 항상 실행되는 단계, 예를 들면 청소 작업 등
+            cleanWs() // 작업 공간 정리
+        }
+    }
+}
+glpat-3y78VRmyCmDaTefGQH7y
