@@ -113,3 +113,5 @@ launchSettings.json
 Assets/Plugins/HierarchyPro/Editor/_SAVED_DATA
 UserSettings
 UnitTest/bin
+NetProject/bin
+nupkgs
