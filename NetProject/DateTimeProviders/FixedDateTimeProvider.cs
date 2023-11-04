@@ -11,7 +11,7 @@ namespace GameTimer.DateTimeProviders {
         }
 
         public DateTime     Now          => fixedTime;
-        public DateTime     UtcNow       => fixedTime.ToUniversalTime();
+        public DateTime     UtcNow       => TimeZoneInfo.ConvertTimeToUtc(fixedTime, TimeZoneInfo);
         public TimeZoneInfo TimeZoneInfo => timeZoneInfo;
     }
 }

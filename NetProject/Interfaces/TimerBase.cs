@@ -23,7 +23,7 @@ namespace GameTimer {
             
             var convertTime    = TimeZoneInfo.ConvertTime(lastTime, DateTimeProvider.TimeZoneInfo);
             var nextTime = _GetNextTime(convertTime);
-            return TimeZoneInfo.ConvertTime(nextTime, TimeZoneInfo.Utc);
+            return TimeZoneInfo.ConvertTimeToUtc(nextTime, DateTimeProvider.TimeZoneInfo);
         }
 
         protected abstract DateTime _GetNextTime(DateTime lastTime);
