@@ -4,24 +4,59 @@ using System.Text.RegularExpressions;
 namespace GameTimer.Utility {
     public class TimeOnly {
         public TimeOnly(int hour = 0, int minute = 0, int second = 0, int millisecond = 0) {
-            if (hour > 23 || hour < 0)
-                throw new System.ArgumentOutOfRangeException(nameof(hour), "hour must be between 0 and 23");
-            if (minute > 59 || minute < 0)
-                throw new System.ArgumentOutOfRangeException(nameof(minute), "minute must be between 0 and 59");
-            if (second > 59 || second < 0)
-                throw new System.ArgumentOutOfRangeException(nameof(second), "second must be between 0 and 59");
-            if (millisecond > 999 || millisecond < 0)
-                throw new System.ArgumentOutOfRangeException(nameof(millisecond), "millisecond must be between 0 and 999");
-                    
-            Hour = hour;
-            Minute = minute;
-            Second = second;
+            Hour        = hour;
+            Minute      = minute;
+            Second      = second;
             Millisecond = millisecond;
         }
-        public int Hour { get; }
-        public int Minute { get; }
-        public int Second { get; }
-        public int Millisecond { get; }
+        public TimeOnly(DateTime dateTime) {
+            Hour        = dateTime.Hour;
+            Minute      = dateTime.Minute;
+            Second      = dateTime.Second;
+            Millisecond = dateTime.Millisecond;
+        }
+        public TimeOnly(TimeSpan timeSpan) {
+            Hour        = timeSpan.Hours;
+            Minute      = timeSpan.Minutes;
+            Second      = timeSpan.Seconds;
+            Millisecond = timeSpan.Milliseconds;
+        }
+
+        public int Hour {
+            get => _hour;
+            private set {
+                if (value > 23 || value < 0)
+                    throw new System.ArgumentOutOfRangeException(nameof(value), "hour must be between 0 and 23");
+                _hour = value;
+            }
+        }
+
+        public int Minute {
+            get => _minute;
+            private set {
+                if (value > 59 || value < 0)
+                    throw new System.ArgumentOutOfRangeException(nameof(value), "minute must be between 0 and 59");
+                _minute = value;
+            }
+        }
+
+        public int Second {
+            get => _second;
+            private set {
+                if (value > 59 || value < 0)
+                    throw new System.ArgumentOutOfRangeException(nameof(value), "second must be between 0 and 59");
+                _second = value;
+            }
+        }
+
+        public int Millisecond {
+            get => _millisecond;
+            private set {
+                if (value > 999 || value < 0)
+                    throw new System.ArgumentOutOfRangeException(nameof(value), "millisecond must be between 0 and 999");
+                _millisecond = value;
+            }
+        }
 
         public override string ToString() {
             return $"{Hour:00}:{Minute:00}:{Second:00}.{Millisecond:000}";
@@ -36,7 +71,12 @@ namespace GameTimer.Utility {
             return Hour.GetHashCode() ^ Minute.GetHashCode() ^ Second.GetHashCode() ^ Millisecond.GetHashCode();
         }
         
-        private static Regex regex = new Regex(@"^(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2})\.(?<milisecond>\d{3})$");
+        private static   Regex regex = new Regex(@"^(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2})\.(?<milisecond>\d{3})$");
+        private int   _hour;
+        private int   _minute;
+        private int   _second;
+        private int   _millisecond;
+
         public static bool TryParse(string s, out TimeOnly result) {
             result = null;
             var match = regex.Match(s);
