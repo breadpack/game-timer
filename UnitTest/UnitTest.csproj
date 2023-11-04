@@ -18,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\NetProject\NetProject.csproj" />
+      <ProjectReference Include="..\NetProject\GameTimer.csproj" />
     </ItemGroup>
 
 </Project>

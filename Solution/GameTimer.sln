@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetProject", "..\NetProject\NetProject.csproj", "{9A6CA7D9-D6F9-4135-A2F2-3EEDAED46DD1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameTimer", "..\NetProject\GameTimer.csproj", "{9A6CA7D9-D6F9-4135-A2F2-3EEDAED46DD1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "..\UnitTest\UnitTest.csproj", "{F40ECC5D-3EEA-4960-8802-B2F8CFC7373C}"
 EndProject
