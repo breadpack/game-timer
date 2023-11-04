@@ -7,6 +7,7 @@ on:
       - 'NetProject/**'
       - 'Solution/**'
       - 'UnitTest/**'
+      - 'NuGet.config'
   workflow_dispatch: # This line allows manual triggering
 
 jobs:
