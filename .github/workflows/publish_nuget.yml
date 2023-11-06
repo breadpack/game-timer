@@ -80,11 +80,6 @@ jobs:
           cd TimerPackage
           npm install
 
-      - name: Build (if needed)
-        run: |
-          cd TimerPackage
-          npm run build
-
       - name: Publish to npm
         run: |
           cd TimerPackage
