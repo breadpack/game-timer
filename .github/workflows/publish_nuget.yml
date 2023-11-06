@@ -76,10 +76,14 @@ jobs:
           scope: '@startergames'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd TimerPackage
+          npm install
 
       - name: Build (if needed)
-        run: npm run build
+        run: |
+          cd TimerPackage
+          npm run build
 
       - name: Publish to npm
         run: |
