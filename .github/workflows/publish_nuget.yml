@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'NetProject/**'
+      - 'NetProject/GameTimer.csproj'
   workflow_dispatch: # This line allows manual triggering
 
 jobs:
@@ -30,6 +30,32 @@ jobs:
       - name: Test
         run: dotnet test Solution/GameTimer.sln --no-restore --verbosity normal
 
+      - name: Copy DLL and PDB to Unity package
+        run: |
+          cp NetProject/bin/Release/netstandard2.0/*.dll TimerPackage/Runtime/
+          cp NetProject/bin/Release/netstandard2.0/*.pdb TimerPackage/Runtime/
+          
+      - name: Extract csproj version
+        id: csproj_version
+        run: |
+          VERSION=$(grep -oP '(?<=<Version>).*(?=</Version>)' NetProject/GameTimer.csproj)
+          echo "::set-output name=VERSION::$VERSION"
+
+      - name: Update package.json with csproj version
+        run: |
+          jq --arg version "$VERSION" '.version = $version' TimerPackage/package.json > temp.json
+          mv temp.json TimerPackage/package.json
+
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add TimerPackage/package.json
+          git add TimerPackage/Runtime/
+          git diff --staged --quiet || git commit -m "Update Unity package binaries" || echo "No changes to commit"
+          git push
+          
+      # NuGet publish
       - name: Pack
         run: dotnet pack NetProject/GameTimer.csproj --configuration Release --no-build --output ./nupkgs
         
@@ -40,3 +66,16 @@ jobs:
         run: dotnet nuget push ./nupkgs/*.nupkg --source "github" --skip-duplicate
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      # NPM publish (for Unity package)
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Publish to npm
+        run: |
+          cd TimerPackage
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
