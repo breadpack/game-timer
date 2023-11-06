@@ -3,7 +3,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <RootNamespace>GameTimer</RootNamespace>
         <PackageId>GameTimer</PackageId>
-        <Version>1.0.0</Version>
+        <Version>1.0.1</Version>
         <Authors>Starter</Authors>
         <Company>Starter</Company>
         <Description>Timer를 시간을 체크하여 지정된 시간이 지났는지 확인하기 위한 라이브러리.
