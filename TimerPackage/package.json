@@ -1,5 +1,5 @@
 {
-  "name": "com.startergames.gametimer",
+  "name": "com.startergames.game-timer",
   "version": "1.0.1",
   "displayName": "Timer for unity",
   "description": "",
@@ -13,5 +13,8 @@
     "name": "Starter Games",
     "email": "developer@startergames.com",
     "url": "https://www.startergames.com"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@startergames"
   }
 }
