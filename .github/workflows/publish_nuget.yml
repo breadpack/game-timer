@@ -8,7 +8,7 @@ on:
   workflow_dispatch: # This line allows manual triggering
 
 jobs:
-  build-and-publish:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -56,6 +56,8 @@ jobs:
           git push
           
       # NuGet publish
+  publish-nuget:      
+    needs: build-and-test
       - name: Pack
         run: dotnet pack NetProject/GameTimer.csproj --configuration Release --no-build --output ./nupkgs
         
@@ -66,7 +68,9 @@ jobs:
         run: dotnet nuget push ./nupkgs/*.nupkg --source "github" --skip-duplicate
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+     
+  publish-npm:
+    needs: build-and-test
       # NPM publish (for Unity package)
       - name: Setup Node
         uses: actions/setup-node@v3
