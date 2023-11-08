@@ -1,5 +1,8 @@
-using GameTimer;
-using GameTimer.DateTimeProviders;
+using Starter.GameTimer.DateTimeProviders;
+using Starter.GameTimer.Enums;
+using Starter.GameTimer.Interfaces;
+using Starter.GameTimer.Timers;
+using TimeOnly = Starter.GameTimer.Utility.TimeOnly;
 
 namespace UnitTest;
 
@@ -14,7 +17,7 @@ public class FixedDateTimeProviderTest {
         return new DateTime(year, month, day, hour, minute, second, DateTimeKind.Unspecified);
     }
 
-    private static GameTimer.Utility.TimeOnly CreateRandomTime() {
+    private static TimeOnly CreateRandomTime() {
         var hour   = Random.Shared.Next(0, 24);
         var minute = Random.Shared.Next(0, 60);
         var second = Random.Shared.Next(0, 60);
@@ -132,7 +135,7 @@ public class FixedDateTimeProviderTest {
         var _dateTimeProvider = Setup(dateTime, utcOffset);
         // Arrange
         var hour     = Random.Shared.Next(0, 24);
-        var interval = new GameTimer.Utility.TimeOnly(hour);
+        var interval = new TimeOnly(hour);
         var lastTime = TimeZoneInfo.ConvertTimeToUtc(_dateTimeProvider.Now, _dateTimeProvider.TimeZoneInfo); // 2023년 4월 10일 오전 4시
         var expected = TimeZoneInfo.ConvertTimeToUtc(
             _dateTimeProvider.Now.Date.AddHours(hour) + (_dateTimeProvider.Now.Hour >= hour ? TimeSpan.FromDays(1) : TimeSpan.Zero)
@@ -251,7 +254,7 @@ public class FixedDateTimeProviderTest {
     }
 
     [Test, TestCaseSource(nameof(TestCases_TimerAtFixedTimeOfWeek))]
-    public void TimerAtFixedTimeOfWeek_Should(DateTime dateTime, DateTime expect, int utcOffset, GameTimer.Utility.TimeOnly time, EDayOfTheWeekFlag dayOfTheWeekFlag) {
+    public void TimerAtFixedTimeOfWeek_Should(DateTime dateTime, DateTime expect, int utcOffset, TimeOnly time, EDayOfTheWeekFlag dayOfTheWeekFlag) {
         var _dateTimeProvider = Setup(dateTime, utcOffset);
         var lastTime          = _dateTimeProvider.UtcNow;                                              // 2023년 4월 10일 월요일 오전 0시
         var expected          = TimeZoneInfo.ConvertTimeToUtc(expect, _dateTimeProvider.TimeZoneInfo); // 2023년 4월 10일 화요일 오전 3시 

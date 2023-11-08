@@ -1,7 +1,8 @@
 using System;
-using GameTimer.Utility;
+using Starter.GameTimer.Interfaces;
+using Starter.GameTimer.Utility;
 
-namespace GameTimer {
+namespace Starter.GameTimer.Timers {
     public class TimerAtFixedTime : TimerBase {
         public TimeOnly Time { get; }
         

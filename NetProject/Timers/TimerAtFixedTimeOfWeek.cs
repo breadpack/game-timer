@@ -1,7 +1,9 @@
 using System;
-using GameTimer.Utility;
+using Starter.GameTimer.Enums;
+using Starter.GameTimer.Interfaces;
+using Starter.GameTimer.Utility;
 
-namespace GameTimer {
+namespace Starter.GameTimer.Timers {
     public class TimerAtFixedTimeOfWeek : TimerBase {
         private static TimeSpan oneDay = TimeSpan.FromDays(1);
 

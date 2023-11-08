@@ -1,6 +1,7 @@
 using System;
+using Starter.GameTimer.Interfaces;
 
-namespace GameTimer.DateTimeProviders {
+namespace Starter.GameTimer.DateTimeProviders {
     public class FixedDateTimeProvider : IDateTimeProvider {
         private readonly DateTime     fixedTime;
         private readonly TimeZoneInfo timeZoneInfo;

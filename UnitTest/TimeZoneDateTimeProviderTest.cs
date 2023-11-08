@@ -1,5 +1,5 @@
-﻿using GameTimer;
-using GameTimer.DateTimeProviders;
+﻿using Starter.GameTimer.DateTimeProviders;
+using Starter.GameTimer.Interfaces;
 
 namespace UnitTest; 
 

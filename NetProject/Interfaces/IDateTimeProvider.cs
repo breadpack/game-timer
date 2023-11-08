@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameTimer {
+namespace Starter.GameTimer.Interfaces {
     public interface IDateTimeProvider {
         DateTime Now            { get; }
         DateTime UtcNow         { get; }

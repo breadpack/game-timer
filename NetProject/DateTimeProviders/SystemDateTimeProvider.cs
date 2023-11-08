@@ -1,6 +1,7 @@
 ﻿using System;
+using Starter.GameTimer.Interfaces;
 
-namespace GameTimer.DateTimeProviders {
+namespace Starter.GameTimer.DateTimeProviders {
     public class SystemDateTimeProvider : IDateTimeProvider {
         public DateTime     Now            => DateTime.Now;
         public DateTime     UtcNow         => DateTime.UtcNow;

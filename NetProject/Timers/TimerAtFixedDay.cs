@@ -1,6 +1,7 @@
 using System;
+using Starter.GameTimer.Interfaces;
 
-namespace GameTimer {
+namespace Starter.GameTimer.Timers {
     public class TimerAtFixedDay : TimerBase {
         public int day { get; }
         

@@ -1,8 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <RootNamespace>GameTimer</RootNamespace>
-        <PackageId>GameTimer</PackageId>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <RootNamespace>Starter.GameTimer</RootNamespace>
+        <AssemblyName>Starter.GameTimer</AssemblyName>
+        <PackageId>Starter.GameTimer</PackageId>
         <Version>1.0.1</Version>
         <Authors>Starter</Authors>
         <Company>Starter</Company>
