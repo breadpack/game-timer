@@ -32,8 +32,8 @@ jobs:
 
       - name: Copy DLL and PDB to Unity package
         run: |
-          cp NetProject/bin/Release/netstandard2.0/*.dll TimerPackage/Runtime/
-          cp NetProject/bin/Release/netstandard2.0/*.pdb TimerPackage/Runtime/
+          cp NetProject/bin/Release/netstandard2.1/*.dll TimerPackage/Runtime/
+          cp NetProject/bin/Release/netstandard2.1/*.pdb TimerPackage/Runtime/
           
       - name: Extract csproj version
         id: csproj_version
