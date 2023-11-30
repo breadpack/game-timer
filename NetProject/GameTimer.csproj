@@ -4,7 +4,7 @@
         <RootNamespace>Starter.GameTimer</RootNamespace>
         <AssemblyName>Starter.GameTimer</AssemblyName>
         <PackageId>Starter.GameTimer</PackageId>
-        <Version>1.0.1</Version>
+        <Version>1.0.2</Version>
         <Authors>Starter</Authors>
         <Company>Starter</Company>
         <Description>Timer를 시간을 체크하여 지정된 시간이 지났는지 확인하기 위한 라이브러리.
