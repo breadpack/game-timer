@@ -17,6 +17,9 @@ namespace Starter.GameTimer.Timers {
 
         protected override DateTime _GetNextTime(DateTime lastTime) {
             var lastDay = lastTime.Date;
+            if (lastDay <= new DateTime(1, 1, 10))
+                lastDay = new DateTime(1, 1, 10);
+            
             var week    = lastDay.GetWeek();
             while (!week.HasFlag(dayOfTheWeek)) {
                 lastDay -= oneDay;
