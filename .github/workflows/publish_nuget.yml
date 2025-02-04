@@ -22,10 +22,10 @@ jobs:
       run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
         
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Solution/GameTimer.sln
       
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build Solution/GameTimer.sln --configuration Release --no-restore
       
     - name: Test
       run: dotnet test UnitTest/UnitTest.csproj --no-restore --verbosity normal
