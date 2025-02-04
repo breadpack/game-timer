@@ -1,89 +1,56 @@
-name: Build and publish NuGet package
+name: Publish NuGet Package
 
 on:
   push:
-    branches: [ main ]
-    paths:
-      - 'NetProject/GameTimer.csproj'
-  workflow_dispatch: # This line allows manual triggering
+    tags:
+      - 'v*'
 
 jobs:
-  build-and-test:
+  publish:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: '7.0.x'
-
-      - name: Restore dependencies
-        run: dotnet restore Solution/GameTimer.sln
-
-      - name: Build
-        run: dotnet build Solution/GameTimer.sln --configuration Release --no-restore
-
-      - name: Test
-        run: dotnet test Solution/GameTimer.sln --no-restore --verbosity normal
-
-      - name: Copy DLL and PDB to Unity package
-        run: |
-          cp NetProject/bin/Release/netstandard2.1/*.dll TimerPackage/Runtime/
-          cp NetProject/bin/Release/netstandard2.1/*.pdb TimerPackage/Runtime/
-          
-      - name: Extract csproj version
-        id: csproj_version
-        run: |
-          VERSION=$(grep -oP '(?<=<Version>).*(?=</Version>)' NetProject/GameTimer.csproj)
-          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
-
-      - name: Update package.json with csproj version
-        run: |
-          jq --arg version "$VERSION" '.version = $version' TimerPackage/package.json > temp.json
-          mv temp.json TimerPackage/package.json
-
-      - name: Commit files
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add TimerPackage/package.json
-          git add TimerPackage/Runtime/
-          git diff --staged --quiet || git commit -m "Update Unity package binaries" || echo "No changes to commit"
-          git push
-          
-      # NuGet publish
-      - name: Pack
-        run: dotnet pack NetProject/GameTimer.csproj --configuration Release --no-build --output ./nupkgs
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
         
-      - name: Add GitHub Source
-        run: dotnet nuget add source "https://nuget.pkg.github.com/startergames/index.json" --name "github" --username OWNER --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
+    - name: Get version from tag
+      id: get_version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      
+    - name: Test
+      run: dotnet test UnitTest/UnitTest.csproj --no-restore --verbosity normal
+      
+    - name: Copy DLL and PDB to Unity package
+      run: |
+        cp NetProject/bin/Release/netstandard2.1/*.dll TimerPackage/Runtime/
+        cp NetProject/bin/Release/netstandard2.1/*.pdb TimerPackage/Runtime/
+        
+    - name: Update package.json with tag version
+      run: |
+        jq --arg version "$VERSION" '.version = $version' TimerPackage/package.json > temp.json
+        mv temp.json TimerPackage/package.json
 
-      - name: Publish to GitHub Packages
-        run: dotnet nuget push ./nupkgs/*.nupkg --source "github" --skip-duplicate
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-     
-      # NPM publish (for Unity package)
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-          registry-url: 'https://npm.pkg.github.com/'
-          scope: '@startergames'
-          always-auth: true
-
-      - name: Install dependencies
-        run: |
-          cd TimerPackage
-          npm install
-
-      - name: Publish to npm
-        run: |
-          cd TimerPackage
-          npm publish --registry https://npm.pkg.github.com/
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add TimerPackage/package.json
+        git add TimerPackage/Runtime/
+        git diff --staged --quiet || git commit -m "Update Unity package binaries" || echo "No changes to commit"
+        git push
+      
+    - name: Pack
+      run: dotnet pack NetProject/GameTimer.csproj --configuration Release --no-build -p:Version=$VERSION --output nupkgs
+      
+    - name: Push to NuGet
+      run: dotnet nuget push nupkgs/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

@@ -1,8 +1,9 @@
-using Starter.GameTimer.DateTimeProviders;
-using Starter.GameTimer.Enums;
-using Starter.GameTimer.Interfaces;
-using Starter.GameTimer.Timers;
-using TimeOnly = Starter.GameTimer.Utility.TimeOnly;
+using BreadPack.GameTimer.DateTimeProviders;
+using BreadPack.GameTimer.Enums;
+using BreadPack.GameTimer.Interfaces;
+using BreadPack.GameTimer.Timers;
+using ITimer = BreadPack.GameTimer.Interfaces.ITimer;
+using TimeOnly = BreadPack.GameTimer.Utility.TimeOnly;
 
 namespace UnitTest;
 
