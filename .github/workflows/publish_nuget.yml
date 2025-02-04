@@ -11,6 +11,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
@@ -44,10 +46,11 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        git checkout -b temp-branch
         git add TimerPackage/package.json
         git add TimerPackage/Runtime/
-        git diff --staged --quiet || git commit -m "Update Unity package binaries" || echo "No changes to commit"
-        git push
+        git diff --staged --quiet || git commit -m "Update Unity package binaries"
+        git push origin temp-branch:main
       
     - name: Pack
       run: dotnet pack NetProject/GameTimer.csproj --configuration Release --no-build -p:Version=$VERSION --output nupkgs
