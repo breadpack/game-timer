@@ -1,6 +1,6 @@
 {
   "name": "dev.breadpack.GameTimer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "displayName": "Game Timer",
   "description": "Unity에서 사용 가능한 타이머 라이브러리",
   "unity": "2021.3",
