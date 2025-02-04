@@ -1,20 +1,20 @@
 {
-  "name": "com.startergames.game-timer",
+  "name": "dev.breadpack.GameTimer",
   "version": "1.0.2",
-  "displayName": "Timer for unity",
-  "description": "",
+  "displayName": "Game Timer",
+  "description": "Unity에서 사용 가능한 타이머 라이브러리",
   "unity": "2021.3",
   "keywords": [
     "unity",
-    "package",
-    "timer"
+    "timer",
+    "game"
   ],
   "author": {
-    "name": "Starter Games",
-    "email": "developer@startergames.com",
-    "url": "https://www.startergames.com"
+    "name": "BreadPack",
+    "email": "milennium9@startergames.com",
+    "url": "https://github.com/breadpack/game-timer"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@startergames"
+    "registry": "https://npm.pkg.github.com/@breadpack"
   }
 }
