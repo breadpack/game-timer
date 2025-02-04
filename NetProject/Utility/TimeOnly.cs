@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Starter.GameTimer.Utility {
+namespace BreadPack.GameTimer.Utility {
     public class TimeOnly {
         public TimeOnly(int hour = 0, int minute = 0, int second = 0, int millisecond = 0) {
             Hour        = hour;

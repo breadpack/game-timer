@@ -1,6 +1,6 @@
 using System;
 
-namespace Starter.GameTimer.Enums {
+namespace BreadPack.GameTimer.Enums {
     [Flags]
     public enum EDayOfTheWeekFlag : int {
         Sunday    = 1 << 0,

@@ -1,7 +1,7 @@
 ﻿using System;
-using Starter.GameTimer.Enums;
+using BreadPack.GameTimer.Enums;
 
-namespace Starter.GameTimer.Utility {
+namespace BreadPack.GameTimer.Utility {
     public static class DateTimeExt {
         public static EDayOfTheWeekFlag GetWeek(this DateTime date) {
             return (EDayOfTheWeekFlag)(1 << (int)date.DayOfWeek);

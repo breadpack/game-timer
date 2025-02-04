@@ -1,8 +1,8 @@
 using System;
-using Starter.GameTimer.Interfaces;
-using Starter.GameTimer.Utility;
+using BreadPack.GameTimer.Interfaces;
+using BreadPack.GameTimer.Utility;
 
-namespace Starter.GameTimer.Timers {
+namespace BreadPack.GameTimer.Timers {
     public class TimerAtFixedTime : TimerBase {
         public TimeOnly Time { get; }
         

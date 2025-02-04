@@ -1,9 +1,9 @@
 using System;
-using Starter.GameTimer.Enums;
-using Starter.GameTimer.Interfaces;
-using Starter.GameTimer.Utility;
+using BreadPack.GameTimer.Enums;
+using BreadPack.GameTimer.Interfaces;
+using BreadPack.GameTimer.Utility;
 
-namespace Starter.GameTimer.Timers {
+namespace BreadPack.GameTimer.Timers {
     public class TimerAtFixedTimeOfWeek : TimerBase {
         private static TimeSpan oneDay = TimeSpan.FromDays(1);
 

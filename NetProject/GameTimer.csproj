@@ -1,15 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
-        <RootNamespace>Starter.GameTimer</RootNamespace>
-        <AssemblyName>Starter.GameTimer</AssemblyName>
-        <PackageId>Starter.GameTimer</PackageId>
-        <Version>1.0.3</Version>
-        <Authors>Starter</Authors>
-        <Company>Starter</Company>
-        <Description>Timer를 시간을 체크하여 지정된 시간이 지났는지 확인하기 위한 라이브러리.
-Unity에서 사용할 수 있도록 netstandard2.0으로 제작.</Description>
-        <RepositoryUrl>https://github.com/startergames/game-timer</RepositoryUrl>
-        <RepositoryType>github</RepositoryType>
+        <RootNamespace>BreadPack.GameTimer</RootNamespace>
+        <PackageId>dev.breadpack.GameTimer</PackageId>
+        <Authors>BreadPack</Authors>
+        <Description>Unity에서 사용 가능한 타이머 라이브러리</Description>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/breadpack/game-timer</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/breadpack/game-timer</RepositoryUrl>
+        <PackageTags>unity;timer;game</PackageTags>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 </Project>

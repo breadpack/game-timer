@@ -1,7 +1,7 @@
 ﻿using System;
-using Starter.GameTimer.Interfaces;
+using BreadPack.GameTimer.Interfaces;
 
-namespace Starter.GameTimer.DateTimeProviders {
+namespace BreadPack.GameTimer.DateTimeProviders {
     public class UtcDateTimeProvider : IDateTimeProvider {
         public DateTime     Now          => DateTime.UtcNow;
         public DateTime     UtcNow       => DateTime.UtcNow;

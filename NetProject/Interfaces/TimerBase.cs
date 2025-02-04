@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Starter.GameTimer.Interfaces {
+namespace BreadPack.GameTimer.Interfaces {
     public abstract class TimerBase : ITimer {
         public IDateTimeProvider DateTimeProvider { get; }
         private readonly TimeSpan defaultLatency;

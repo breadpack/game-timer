@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Starter.GameTimer.Interfaces {
+namespace BreadPack.GameTimer.Interfaces {
     public interface IDateTimeProvider {
         DateTime Now            { get; }
         DateTime UtcNow         { get; }

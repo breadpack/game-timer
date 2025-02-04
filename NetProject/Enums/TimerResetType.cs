@@ -1,4 +1,4 @@
-namespace Starter.GameTimer.Enums {
+namespace BreadPack.GameTimer.Enums {
     public enum TimerResetType {
         AtFixTime,
         AtFixTimeInterval,

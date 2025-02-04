@@ -1,5 +1,5 @@
-﻿using Starter.GameTimer.DateTimeProviders;
-using Starter.GameTimer.Interfaces;
+﻿using BreadPack.GameTimer.DateTimeProviders;
+using BreadPack.GameTimer.Interfaces;
 
 namespace UnitTest; 
 

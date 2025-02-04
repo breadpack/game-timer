@@ -1,7 +1,7 @@
 using System;
-using Starter.GameTimer.Interfaces;
+using BreadPack.GameTimer.Interfaces;
 
-namespace Starter.GameTimer.Timers {
+namespace BreadPack.GameTimer.Timers {
     public class TimerFromStartTime : TimerBase {
         public TimeSpan timeInterval { get; }
         
